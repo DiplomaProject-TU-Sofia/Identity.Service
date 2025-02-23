@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Service.API", "Identity.Service.API.csproj", "{DA66C539-B588-4939-82DB-4A152AE95207}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Service.Data", "..\Identity.Server.Data\Identity.Service.Data.csproj", "{9BC7AD16-8DCC-4267-B773-BF418356C321}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA66C539-B588-4939-82DB-4A152AE95207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA66C539-B588-4939-82DB-4A152AE95207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA66C539-B588-4939-82DB-4A152AE95207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA66C539-B588-4939-82DB-4A152AE95207}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC7AD16-8DCC-4267-B773-BF418356C321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC7AD16-8DCC-4267-B773-BF418356C321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC7AD16-8DCC-4267-B773-BF418356C321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC7AD16-8DCC-4267-B773-BF418356C321}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F768F3EE-0DD3-4835-AA42-E0710FAE7A2F}
+	EndGlobalSection
+EndGlobal
