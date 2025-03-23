@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Identity.Service.API.Models;
+using Identity.Service.Data.Entities;
+using Identity.Service.Data.Entities.Enumerations;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using Identity.Service.API.Models;
-using Identity.Service.Data.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Identity.Service.API.Controllers
 {
@@ -66,7 +64,8 @@ namespace Identity.Service.API.Controllers
 				Email = model.Email,
 				FirstName = model.FirstName,
 				LastName = model.LastName,
-				RegistrationTime = DateTime.UtcNow
+				RegistrationTime = DateTime.UtcNow,
+				Role = Role.User
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
@@ -131,7 +130,8 @@ namespace Identity.Service.API.Controllers
 				Email = model.Email,
 				FirstName = model.FirstName,
 				LastName = model.LastName,
-				RegistrationTime = DateTime.UtcNow
+				RegistrationTime = DateTime.UtcNow,
+				Role = Role.Admin
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
@@ -163,7 +163,8 @@ namespace Identity.Service.API.Controllers
 				Email = model.Email,
 				FirstName = model.FirstName,
 				LastName = model.LastName,
-				RegistrationTime = DateTime.UtcNow
+				RegistrationTime = DateTime.UtcNow,
+				Role = Role.Worker
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);

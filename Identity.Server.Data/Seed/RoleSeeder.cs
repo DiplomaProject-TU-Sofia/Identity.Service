@@ -1,4 +1,4 @@
-﻿using Identity.Service.Data.Models;
+﻿using Identity.Service.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 

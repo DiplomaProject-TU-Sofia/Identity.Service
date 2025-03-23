@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Identity.Service.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Identity.Service.Data.Models;
 
 namespace Identity.Service.Data.Repositories
 {

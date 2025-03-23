@@ -1,5 +1,5 @@
 ﻿using Identity.Service.Data;
-using Identity.Service.Data.Models;
+using Identity.Service.Data.Entities;
 using Identity.Service.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -55,9 +55,13 @@ public class Startup
 
 		// Apply any pending migrations at startup
 		using (var scope = app.ApplicationServices.CreateScope())
+
 		{
 			var dbContext = scope.ServiceProvider.GetRequiredService<IdentityServiceDbContext>();
-			dbContext.Database.Migrate();  // This applies any pending migrations
+			if (dbContext.Database.IsRelational())
+			{
+				dbContext.Database.Migrate();  // This applies any pending migrations
+			}
 		}
 		
 		// Seed roles
