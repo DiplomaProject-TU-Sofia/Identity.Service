@@ -9,8 +9,6 @@ namespace Identity.Service.Data.Entities
 		public string? FirstName { get; set; }  // Nullable
 
 		public string? LastName { get; set; }   // Nullable
-		
-		public Role Role { get; set; }
 
 		// Time of registration
 		public DateTime RegistrationTime { get; set; }

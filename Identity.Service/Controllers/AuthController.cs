@@ -65,10 +65,13 @@ namespace Identity.Service.API.Controllers
 				FirstName = model.FirstName,
 				LastName = model.LastName,
 				RegistrationTime = DateTime.UtcNow,
-				Role = Role.User
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
+			if (result.Succeeded)
+			{
+				await _userManager.AddToRoleAsync(user, Role.User.ToString());
+			}
 
 
 			if (!result.Succeeded)
@@ -131,10 +134,13 @@ namespace Identity.Service.API.Controllers
 				FirstName = model.FirstName,
 				LastName = model.LastName,
 				RegistrationTime = DateTime.UtcNow,
-				Role = Role.Admin
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
+			if (result.Succeeded)
+			{
+				await _userManager.AddToRoleAsync(user, Role.Admin.ToString());
+			}
 
 			if (result.Succeeded)
 			{
@@ -164,10 +170,13 @@ namespace Identity.Service.API.Controllers
 				FirstName = model.FirstName,
 				LastName = model.LastName,
 				RegistrationTime = DateTime.UtcNow,
-				Role = Role.Worker
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
+			if (result.Succeeded)
+			{
+				await _userManager.AddToRoleAsync(user, Role.Worker.ToString());
+			}
 
 			if (result.Succeeded)
 			{
