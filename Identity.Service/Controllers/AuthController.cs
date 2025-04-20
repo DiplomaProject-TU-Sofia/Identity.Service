@@ -83,19 +83,28 @@ namespace Identity.Service.API.Controllers
 			_logger.LogInformation("✅ User {Email} registered successfully", model.Email);
 			return Ok(new { message = "User registered successfully" });
 		}
-
+		
+		[AllowAnonymous]
 		[HttpPost("login")]
 		public async Task<IActionResult> Login([FromBody] LoginModel model)
 		{
 			var user = await _userManager.FindByEmailAsync(model.Email);
 			if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
 			{
+				var userRoles = await _userManager.GetRolesAsync(user); // 🔥
+
 				var claims = new List<Claim>
 				{
-						new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),  // UserId as GUID
-				     new Claim(ClaimTypes.Name, user.UserName),
-						new Claim(ClaimTypes.Email, user.Email),
+					new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+					new Claim(ClaimTypes.Name, user.UserName),
+					new Claim(ClaimTypes.Email, user.Email)
 				};
+
+				// Add role claims
+				foreach (var role in userRoles)
+				{
+					claims.Add(new Claim(ClaimTypes.Role, role)); // 🔥 This is key
+				}
 
 				var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));
 				var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -117,6 +126,7 @@ namespace Identity.Service.API.Controllers
 			return Unauthorized();
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPost("register-admin")]
 		public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
 		{
@@ -137,10 +147,6 @@ namespace Identity.Service.API.Controllers
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
-			if (result.Succeeded)
-			{
-				await _userManager.AddToRoleAsync(user, "Admin");
-			}
 
 			if (result.Succeeded)
 			{
@@ -152,7 +158,7 @@ namespace Identity.Service.API.Controllers
 			return BadRequest(result.Errors);
 		}
 
-		[Authorize(Roles = "Admin")]  // Only Admins can access this endpoint
+		[Authorize(Roles = "Admin")] // Only Admins can access this endpoint
 		[HttpPost("register-worker")]
 		public async Task<IActionResult> RegisterWorker([FromBody] RegisterModel model)
 		{
@@ -173,10 +179,6 @@ namespace Identity.Service.API.Controllers
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);
-			if (result.Succeeded)
-			{
-				await _userManager.AddToRoleAsync(user, "Worker");
-			}
 
 			if (result.Succeeded)
 			{
