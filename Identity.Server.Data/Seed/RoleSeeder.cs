@@ -1,4 +1,5 @@
 ﻿using Identity.Service.Data.Entities;
+using Identity.Service.Data.Entities.Enumerations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -70,7 +70,7 @@ namespace Identity.Service.API.Controllers
 			var result = await _userManager.CreateAsync(user, model.Password);
 			if (result.Succeeded)
 			{
-				await _userManager.AddToRoleAsync(user, Role.User.ToString());
+				await _userManager.AddToRoleAsync(user, "User");
 			}
 
 
@@ -139,7 +139,7 @@ namespace Identity.Service.API.Controllers
 			var result = await _userManager.CreateAsync(user, model.Password);
 			if (result.Succeeded)
 			{
-				await _userManager.AddToRoleAsync(user, Role.Admin.ToString());
+				await _userManager.AddToRoleAsync(user, "Admin");
 			}
 
 			if (result.Succeeded)
@@ -175,7 +175,7 @@ namespace Identity.Service.API.Controllers
 			var result = await _userManager.CreateAsync(user, model.Password);
 			if (result.Succeeded)
 			{
-				await _userManager.AddToRoleAsync(user, Role.Worker.ToString());
+				await _userManager.AddToRoleAsync(user, "Worker");
 			}
 
 			if (result.Succeeded)
