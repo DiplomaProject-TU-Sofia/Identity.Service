@@ -4,11 +4,7 @@ using Identity.Service.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 using System.Text;
 
 public class Startup
@@ -29,6 +25,16 @@ public class Startup
 		services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 			.AddEntityFrameworkStores<IdentityServiceDbContext>()
 			.AddDefaultTokenProviders();
+
+		services.Configure<IdentityOptions>(options =>
+		{
+			options.Password.RequireDigit = false;
+			options.Password.RequireLowercase = false;
+			options.Password.RequireUppercase = false;
+			options.Password.RequireNonAlphanumeric = false;
+			options.Password.RequiredLength = 3;
+			options.Password.RequiredUniqueChars = 0;
+		});
 
 		// Register services
 		services.AddScoped<RegistrationService>();
