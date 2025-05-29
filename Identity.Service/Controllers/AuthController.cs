@@ -120,7 +120,8 @@ namespace Identity.Service.API.Controllers
 				return Ok(new
 				{
 					token = new JwtSecurityTokenHandler().WriteToken(token),
-					role = userRoles.FirstOrDefault()
+					role = userRoles.FirstOrDefault(),
+					userId = user.Id.ToString()
 				});
 			}
 
