@@ -34,7 +34,7 @@ namespace Identity.Service.API.Controllers
 
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] RegisterModel model)
-		{
+		{ 
 			_logger.LogInformation("🔵 Register request received for {Email}", model.Email);
 
 			// Check if a user with the given email already exists
