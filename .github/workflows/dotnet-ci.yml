@@ -20,10 +20,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore Identity.Service/Identity.Service/Identity.Service.sln
+      run: dotnet restore Identity.Service/Identity.Service.sln
 
     - name: Build solution
-      run: dotnet build Identity.Service/Identity.Service/Identity.Service.sln --no-restore --configuration Release
+      run: dotnet build Identity.Service/Identity.Service.sln --no-restore --configuration Release
 
     - name: Run tests
-      run: dotnet test Identity.Service/Identity.Service/Identity.Service.sln --no-build --configuration Release --verbosity normal
+      run: dotnet test Identity.Service/Identity.Service.sln --no-build --configuration Release --verbosity normal
