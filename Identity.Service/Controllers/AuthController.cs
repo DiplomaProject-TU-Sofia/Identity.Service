@@ -65,6 +65,7 @@ namespace Identity.Service.API.Controllers
 				FirstName = model.FirstName,
 				LastName = model.LastName,
 				RegistrationTime = DateTime.UtcNow,
+				ImageName = model.ImageFileName
 			};
 
 			var result = await _userManager.CreateAsync(user, model.Password);

@@ -10,6 +10,8 @@ namespace Identity.Service.Data.Entities
 
 		public string? LastName { get; set; }   // Nullable
 
+		public string? ImageName { get; set; }
+
 		// Time of registration
 		public DateTime RegistrationTime { get; set; }
 	}
