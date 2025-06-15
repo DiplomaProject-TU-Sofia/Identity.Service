@@ -25,7 +25,7 @@ namespace Identity.Service.Data.Repositories
 				.AddDefaultTokenProviders();
 
 			// Log identity service registration
-			_logger.LogInformation("✅ Identity Services Registered Successfully!");
+			_logger.LogInformation("Identity Services Registered Successfully!");
 
 			return services;
 		}

@@ -1,6 +1,5 @@
 ﻿using Identity.Service.API.Models;
 using Identity.Service.Data.Entities;
-using Identity.Service.Data.Entities.Enumerations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -35,26 +34,26 @@ namespace Identity.Service.API.Controllers
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] RegisterModel model)
 		{ 
-			_logger.LogInformation("🔵 Register request received for {Email}", model.Email);
+			_logger.LogInformation("Register request received for {Email}", model.Email);
 
 			// Check if a user with the given email already exists
 			var existingUser = await _userManager.FindByEmailAsync(model.Email);
 			if (existingUser != null)
 			{
-				_logger.LogWarning("⚠️ There is an existing user with email {Email}", model.Email);
+				_logger.LogWarning("There is an existing user with email {Email}", model.Email);
 				return BadRequest(new { message = "Email is already taken" });
 			}
 
 
 			if (!ModelState.IsValid)
 			{
-				_logger.LogWarning("⚠️ Invalid registration model");
+				_logger.LogWarning("Invalid registration model");
 				return BadRequest(ModelState);
 			}
 
 			if (model.Password != model.ConfirmPassword)
 			{
-				_logger.LogWarning("⚠️ Passwords do not match for {Email}", model.Email);
+				_logger.LogWarning("Passwords do not match for {Email}", model.Email);
 				return BadRequest(new { message = "Passwords do not match" });
 			}
 
@@ -77,11 +76,11 @@ namespace Identity.Service.API.Controllers
 
 			if (!result.Succeeded)
 			{
-				_logger.LogError("❌ Registration failed for {Email}: {Errors}", model.Email, result.Errors);
+				_logger.LogError("Registration failed for {Email}: {Errors}", model.Email, result.Errors);
 				return BadRequest(result.Errors);
 			}
 
-			_logger.LogInformation("✅ User {Email} registered successfully", model.Email);
+			_logger.LogInformation("User {Email} registered successfully", model.Email);
 			return Ok(new { message = "User registered successfully" });
 		}
 		
@@ -92,7 +91,7 @@ namespace Identity.Service.API.Controllers
 			var user = await _userManager.FindByEmailAsync(model.Email);
 			if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
 			{
-				var userRoles = await _userManager.GetRolesAsync(user); // 🔥
+				var userRoles = await _userManager.GetRolesAsync(user);
 
 				var claims = new List<Claim>
 				{
@@ -104,7 +103,7 @@ namespace Identity.Service.API.Controllers
 				// Add role claims
 				foreach (var role in userRoles)
 				{
-					claims.Add(new Claim(ClaimTypes.Role, role)); // 🔥 This is key
+					claims.Add(new Claim(ClaimTypes.Role, role));
 				}
 
 				var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));
@@ -136,7 +135,7 @@ namespace Identity.Service.API.Controllers
 			var existingUser = await _userManager.FindByEmailAsync(model.Email);
 			if (existingUser != null)
 			{
-				_logger.LogWarning("⚠️ There is an existing user with email {Email}", model.Email);
+				_logger.LogWarning("There is an existing user with email {Email}", model.Email);
 				return BadRequest(new { message = "Email is already taken" });
 			}
 
@@ -161,14 +160,14 @@ namespace Identity.Service.API.Controllers
 			return BadRequest(result.Errors);
 		}
 
-		[Authorize(Roles = "Admin")] // Only Admins can access this endpoint
+		[Authorize(Roles = "Admin")]
 		[HttpPost("register-worker")]
 		public async Task<IActionResult> RegisterWorker([FromBody] RegisterModel model)
 		{
 			var existingUser = await _userManager.FindByEmailAsync(model.Email);
 			if (existingUser != null)
 			{
-				_logger.LogWarning("⚠️ There is an existing user with email {Email}", model.Email);
+				_logger.LogWarning("There is an existing user with email {Email}", model.Email);
 				return BadRequest(new { message = "Email is already taken" });
 			}
 
