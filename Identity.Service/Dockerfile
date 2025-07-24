@@ -9,6 +9,9 @@ COPY ["Identity.Service/Identity.Service.sln", "."]
 COPY ["Identity.Service/Identity.Service.API.csproj", "Identity.Service/"]
 COPY ["Identity.Server.Data/Identity.Service.Data.csproj", "Identity.Server.Data/"]
 
+RUN ls -l /src
+RUN ls -l /src/Identity.Service
+
 RUN dotnet restore "Identity.Service.sln"
 
 COPY . .
