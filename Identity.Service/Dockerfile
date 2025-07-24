@@ -23,4 +23,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "Identity.Service.API.dll"]
+ENTRYPOINT ["dotnet", "Identity.Service.dll"]
