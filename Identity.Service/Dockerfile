@@ -5,11 +5,10 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["Identity.Service.sln", "."]
 COPY ["Identity.Service/Identity.Service.API.csproj", "Identity.Service/"]
 COPY ["Identity.Server.Data/Identity.Service.Data.csproj", "Identity.Server.Data/"]
 
-RUN dotnet restore "Identity.Service.sln"
+RUN dotnet restore "Identity.Service/Identity.Service.API.csproj"
 
 COPY . .
 
