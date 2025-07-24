@@ -10,7 +10,7 @@ COPY ["Identity.Service/Identity.Service.API.csproj", "Identity.Service/"]
 COPY ["Identity.Server.Data/Identity.Service.Data.csproj", "Identity.Server.Data/"]
 
 WORKDIR "/src/Identity.Service"
-RUN dotnet restore "Identity.Service/Identity.Service.sln"
+RUN dotnet restore "Identity.Service.sln"
 
 COPY . .
 
