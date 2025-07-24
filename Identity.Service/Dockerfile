@@ -5,15 +5,20 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
+# Copy the solution file and all project files needed for restore
+COPY ["Identity.Service.sln", "."]
 COPY ["Identity.Service/Identity.Service.API.csproj", "Identity.Service/"]
 COPY ["Identity.Server.Data/Identity.Service.Data.csproj", "Identity.Server.Data/"]
 
-RUN dotnet restore "Identity.Service/Identity.Service.API.csproj"
+# Restore dependencies for the whole solution
+RUN dotnet restore "Identity.Service.sln"
 
+# Copy the rest of the source code
 COPY . .
 
 WORKDIR "/src/Identity.Service"
 
+# Build and publish the solution
 RUN dotnet build "Identity.Service.sln" -c Release -o /app/build
 
 FROM build AS publish
